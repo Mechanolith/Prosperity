@@ -1,12 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\I_Upgrade_Button.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\A_Resource_God.cs">
     <Files>
-      <File FileName="Assets\A_Resource_God.cs" Line="59" Column="18" />
-      <File FileName="Assets\I_Upgrade_Button.cs" Line="10" Column="75" />
-      <File FileName="Assets\A_Worker_God.cs" Line="16" Column="5" />
-      <File FileName="Assets\I_AssignWorker_Button.cs" Line="8" Column="26" />
-      <File FileName="Assets\A_Classes.cs" Line="3" Column="34" />
+      <File FileName="Assets\A_Resource_God.cs" Line="26" Column="53" />
+      <File FileName="Assets\I_Upgrade_Button.cs" Line="12" Column="50" />
+      <File FileName="Assets\A_Worker_God.cs" Line="10" Column="56" />
+      <File FileName="Assets\I_AssignWorker_Button.cs" Line="20" Column="50" />
+      <File FileName="Assets\A_Classes.cs" Line="50" Column="20" />
+      <File FileName="Assets\A_Interface_God.cs" Line="35" Column="53" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
