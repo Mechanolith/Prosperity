@@ -46,12 +46,13 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\A_Classes.cs" />
-     <Compile Include="Assets\A_Interface_God.cs" />
-     <Compile Include="Assets\A_Resource_God.cs" />
-     <Compile Include="Assets\A_Worker_God.cs" />
-     <Compile Include="Assets\I_AssignWorker_Button.cs" />
-     <Compile Include="Assets\I_Upgrade_Button.cs" />
+     <Compile Include="Assets\Scripts\A_Audio_God.cs" />
+     <Compile Include="Assets\Scripts\A_Classes.cs" />
+     <Compile Include="Assets\Scripts\A_Interface_God.cs" />
+     <Compile Include="Assets\Scripts\A_Resource_God.cs" />
+     <Compile Include="Assets\Scripts\A_Worker_God.cs" />
+     <Compile Include="Assets\Scripts\I_AssignWorker_Button.cs" />
+     <Compile Include="Assets\Scripts\I_Upgrade_Button.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
