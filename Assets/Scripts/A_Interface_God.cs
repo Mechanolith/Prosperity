@@ -5,6 +5,7 @@ public class A_Interface_God : MonoBehaviour {
 	public A_Resource_God resGod;
 	public TextMesh woodCount,stoneCount,ironCount,goldCount,boneCount, workerCount;
 	public TextMesh woodAssigned, stoneAssigned, ironAssigned, goldAssigned;
+	public GameObject userInterface;
 
 	void Start () {
 		resGod = gameObject.GetComponent<A_Resource_God>();
@@ -19,6 +20,8 @@ public class A_Interface_God : MonoBehaviour {
 		stoneAssigned = GameObject.Find("I_Stone_Assigned").GetComponent<TextMesh>();
 		ironAssigned = GameObject.Find("I_Iron_Assigned").GetComponent<TextMesh>();
 		goldAssigned = GameObject.Find("I_Gold_Assigned").GetComponent<TextMesh>();
+
+		userInterface = GameObject.Find("I_Interface");
 	}
 
 	void Update () {
@@ -33,5 +36,13 @@ public class A_Interface_God : MonoBehaviour {
 		stoneAssigned.text = resGod.resList[1].workers + "S";
 		ironAssigned.text = resGod.resList[2].workers + "I";
 		goldAssigned.text = resGod.resList[3].workers + "G";
+	}
+
+	public void EnableInterface(){
+		userInterface.SetActive(true);
+	}
+
+	public void DisableInterface(){
+		userInterface.SetActive(false);
 	}
 }

@@ -2,10 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\A_Resource_God.cs">
     <Files>
-      <File FileName="Assets\Scripts\P_Worker_AI.cs" Line="27" Column="8" />
-      <File FileName="Assets\Scripts\A_Audio_God.cs" Line="54" Column="17" />
-      <File FileName="Assets\Scripts\A_Resource_God.cs" Line="58" Column="45" />
-      <File FileName="Assets\Scripts\I_AssignWorker_Button.cs" Line="9" Column="27" />
+      <File FileName="Assets\Scripts\I_BASK_Button.cs" Line="28" Column="23" />
+      <File FileName="Assets\Scripts\A_BASK_God.cs" Line="41" Column="18" />
+      <File FileName="Assets\Scripts\P_Worker_AI.cs" Line="22" Column="5" />
+      <File FileName="Assets\Scripts\A_Resource_God.cs" Line="80" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,37 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class I_Upgrade_Button : MonoBehaviour {
+public class I_BASK_Button : MonoBehaviour {
 	public A_Resource_God resGod;
-	public string upgName;
-	public Upgrade upg;
+	public A_BASK_God baskGod;
 	public TextMesh thisText;
 
 	void Start () {
 		resGod = GameObject.Find("A_Game_Logic").GetComponent<A_Resource_God>();
+		baskGod = GameObject.Find("A_Game_Logic").GetComponent<A_BASK_God>();
 		thisText = gameObject.GetComponent<TextMesh>();
-
-		if (upgName == "Worker"){
-			upg = resGod.newWorker;
-		}
-		else if (upgName == "Level"){
-			upg = resGod.newLevel;
-		}
 	}
-
+	
 	void Update () {
-
 	}
-
+	
 	void OnMouseOver(){
 		thisText.color = Color.red;
 	}
 	
 	void OnMouseExit(){
-		thisText.color = Color.white;
+		thisText.color = Color.black;
 	}
 
 	void OnMouseDown(){
-		resGod.buyUpgrade(upg);
+		OnMouseExit();
+		baskGod.StartBask();
 	}
 }

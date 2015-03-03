@@ -1,26 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class I_Upgrade_Button : MonoBehaviour {
+public class I_Sacrifice_Button : MonoBehaviour {
 	public A_Resource_God resGod;
-	public string upgName;
-	public Upgrade upg;
 	public TextMesh thisText;
 
 	void Start () {
 		resGod = GameObject.Find("A_Game_Logic").GetComponent<A_Resource_God>();
 		thisText = gameObject.GetComponent<TextMesh>();
-
-		if (upgName == "Worker"){
-			upg = resGod.newWorker;
-		}
-		else if (upgName == "Level"){
-			upg = resGod.newLevel;
-		}
 	}
 
 	void Update () {
-
+	
 	}
 
 	void OnMouseOver(){
@@ -30,8 +21,15 @@ public class I_Upgrade_Button : MonoBehaviour {
 	void OnMouseExit(){
 		thisText.color = Color.white;
 	}
-
+	
 	void OnMouseDown(){
-		resGod.buyUpgrade(upg);
+		if(!resGod.sacrificing){
+			resGod.sacrificing = true;
+			print("Knife out");
+		}
+		else{
+			resGod.sacrificing = false;
+			print("Kinfe away");
+		}
 	}
 }
