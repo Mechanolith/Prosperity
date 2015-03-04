@@ -51,7 +51,6 @@
      <Compile Include="Assets\Scripts\A_Classes.cs" />
      <Compile Include="Assets\Scripts\A_Interface_God.cs" />
      <Compile Include="Assets\Scripts\A_Resource_God.cs" />
-     <Compile Include="Assets\Scripts\A_Worker_God.cs" />
      <Compile Include="Assets\Scripts\I_AssignWorker_Button.cs" />
      <Compile Include="Assets\Scripts\I_BASK_Button.cs" />
      <Compile Include="Assets\Scripts\I_Sacrifice_Button.cs" />

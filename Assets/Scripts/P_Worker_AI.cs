@@ -7,6 +7,7 @@ public class P_Worker_AI : MonoBehaviour {
 	public bool dying = false;
 	public bool carrying = false;
 	public string workerName;
+	public int workerNumber;
 
 	private int resNo;
 	private A_Resource_God resGod;
@@ -76,6 +77,7 @@ public class P_Worker_AI : MonoBehaviour {
 			resGod.isCult = true;
 			resGod.GetResource(4);
 			infoText.text = "";
+            resGod.SacrificeWorker(resNo, workerNumber);
 			Destroy(gameObject);
         }
 	}

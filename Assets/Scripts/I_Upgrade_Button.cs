@@ -33,19 +33,19 @@ public class I_Upgrade_Button : MonoBehaviour {
 			upgText.text = displayName;
 			if(upg.name == Upgrade.UpgType.newLevel){
 				if(upg.costList[0] > 0){
-					costText.text = "W: " + upg.costList[0] + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2];
+					costText.text = "W: " + upg.costList[0] + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2] + "\nImproves Productivity!";
 				}
 				else if(upg.costList[1] > 0 && resGod.isCult){
-					costText.text = "B: " + upg.costList[4] + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2];
+					costText.text = "B: " + upg.costList[4] + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2] + "\nEnsures Productivity!";
 				}
 				else if(upg.costList[2] > 0 && resGod.isCult){
-					costText.text = "B: " + upg.costList[4] + "\nI: " + upg.costList[2];
+					costText.text = "B: " + upg.costList[4] + "\nI: " + upg.costList[2] + "\nDemands Productivity!";
 				}
 				else if(resGod.isCult){
-					costText.text = "B: " + upg.costList[4];
+					costText.text = "B: " + upg.costList[4] + "\nEnforces Productivity!";
 				}
 				else{
-					costText.text = "W: INSUFFICIENT" + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2];
+					costText.text = "W: INSUFFICIENT" + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2] + "\nImproves Productivity!";
 				}
 			}
 			else{

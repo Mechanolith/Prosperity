@@ -20,11 +20,11 @@ public class A_Resource_God : MonoBehaviour {
 	public List<string> lastNames = new List<string>();
 	
 	void Awake(){
-		resList.Add(new Resource(Resource.ResType.Wood,498,0,10,0));
-		resList.Add(new Resource(Resource.ResType.Stone,662,0,10,0));
-		resList.Add(new Resource(Resource.ResType.Iron,766,0,10,0));
-		resList.Add(new Resource(Resource.ResType.Gold,1522,10,10,0));
-		resList.Add(new Resource(Resource.ResType.Bones,100000000,0,190,0));
+		resList.Add(new Resource(Resource.ResType.Wood,3135,0,100,0));
+		resList.Add(new Resource(Resource.ResType.Stone,4570,0,100,0));
+		resList.Add(new Resource(Resource.ResType.Iron,5302,0,100,0));
+		resList.Add(new Resource(Resource.ResType.Gold,10662,10,100,0));
+		resList.Add(new Resource(Resource.ResType.Bones,70000,0,190,0));
 
 		newWorker = new Upgrade(Upgrade.UpgType.newWorker,0,0,0,10,0,1,1);
 		newLevel = new Upgrade(Upgrade.UpgType.newLevel,20,10,5,0,0,1,1);
@@ -87,11 +87,16 @@ public class A_Resource_God : MonoBehaviour {
 
 		if(upg.name == Upgrade.UpgType.newLevel){
 			ConstructTower();
-			for(int i = 0; i < newLevel.costList.Count; i++){
+			for(int i = 0; i < newLevel.costList.Count-1; i++){
 				newLevel.costList[i] = Mathf.RoundToInt(newLevel.costList[i] * 1.15f);
-				if(resList[i].current == 0 && resList[i].supply == 0){
+				if(resList[i].current < 10 && resList[i].supply == 0){
 					ReplaceResource(i);
 				}
+			}
+			newLevel.costList[4] = Mathf.RoundToInt(newLevel.costList[4] * 1.1f);
+
+			for (int j = 0; j < resList.Count - 1; j++){
+				resList[j].rate++;
 			}
 			newLevel.iteration++;
 		}
@@ -106,6 +111,7 @@ public class A_Resource_God : MonoBehaviour {
 			currentWorker.GetComponent<P_Worker_AI>().workerName = nameList[0];
 			nameList.RemoveAt(0);
 			workForce.Add(currentWorker);
+			currentWorker.GetComponent<P_Worker_AI>().workerNumber = workForce.Count - 1;
 		}
 	}
 
@@ -168,7 +174,25 @@ public class A_Resource_God : MonoBehaviour {
 	}
 
 	void ReplaceResource(int resNo){
-		newLevel.costList[4] += newLevel.costList[resNo];
+		switch(resNo){
+		case 0:
+			newLevel.costList[4] = 50;
+			break;
+		case 1:
+			newLevel.costList[4] = 100;
+			break;
+		case 2:
+			newLevel.costList[4] = 225;
+			break;
+		default:
+			break;
+		};
 		newLevel.costList [resNo] = 0;
 	}
+
+    public void SacrificeWorker(int resNo, int workNo){
+		resList[resNo].workers--;
+		workForce.RemoveAt(workNo);
+		maxWorkers--;
+    }
 }
