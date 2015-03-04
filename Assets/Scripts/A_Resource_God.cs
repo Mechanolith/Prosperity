@@ -13,21 +13,21 @@ public class A_Resource_God : MonoBehaviour {
 	public GameObject currentWorker, worker;
 	public List<GameObject> workForce = new List<GameObject> ();
 	public bool sacrificing = false;
+	public bool isCult = false;
 
 	public List<string> nameList = new List<string>();
 	public List<string> firstNames = new List<string>();
 	public List<string> lastNames = new List<string>();
-
 	
 	void Awake(){
-		resList.Add(new Resource(Resource.ResType.Wood,50000,10000,10,0));
-		resList.Add(new Resource(Resource.ResType.Stone,50000,10000,10,0));
-		resList.Add(new Resource(Resource.ResType.Iron,50000,10000,10,0));
-		resList.Add(new Resource(Resource.ResType.Gold,50000,10000,10,0));
-		resList.Add(new Resource(Resource.ResType.Bones,100000000,0,200,0));
+		resList.Add(new Resource(Resource.ResType.Wood,498,0,10,0));
+		resList.Add(new Resource(Resource.ResType.Stone,662,0,10,0));
+		resList.Add(new Resource(Resource.ResType.Iron,766,0,10,0));
+		resList.Add(new Resource(Resource.ResType.Gold,1522,10,10,0));
+		resList.Add(new Resource(Resource.ResType.Bones,100000000,0,190,0));
 
-		newWorker = new Upgrade(Upgrade.UpgType.newWorker,0,0,0,100,0,1,1);
-		newLevel = new Upgrade(Upgrade.UpgType.newLevel,10,10,10,0,0,1,1);
+		newWorker = new Upgrade(Upgrade.UpgType.newWorker,0,0,0,10,0,1,1);
+		newLevel = new Upgrade(Upgrade.UpgType.newLevel,20,10,5,0,0,1,1);
 
 		towerPos = new Vector3 (0f, -0.18f, -3.25f);
 	}
@@ -47,6 +47,10 @@ public class A_Resource_God : MonoBehaviour {
 		else{
 			resList[resNo].current += resList[resNo].supply;
 			resList[resNo].supply = 0;
+		}
+
+		if(resList[resNo].supply == 0){
+			gameObject.GetComponent<A_Interface_God>().EnableSacrifice();
 		}
 	}
 
@@ -78,7 +82,6 @@ public class A_Resource_God : MonoBehaviour {
 			freeWorkers++;
 			newWorker.costList[3] = Mathf.RoundToInt(newWorker.costList[3] * 1.15f);
 			nameList.Add(ChooseName());
-			//nameList.Add("Testname "+newWorker.iteration);
 			newWorker.iteration++;
 		}
 
@@ -86,6 +89,9 @@ public class A_Resource_God : MonoBehaviour {
 			ConstructTower();
 			for(int i = 0; i < newLevel.costList.Count; i++){
 				newLevel.costList[i] = Mathf.RoundToInt(newLevel.costList[i] * 1.15f);
+				if(resList[i].current == 0 && resList[i].supply == 0){
+					ReplaceResource(i);
+				}
 			}
 			newLevel.iteration++;
 		}
@@ -159,5 +165,10 @@ public class A_Resource_God : MonoBehaviour {
 		endName = firstNames[firstRand] + " " + lastNames[lastRand];
 
 		return endName;
+	}
+
+	void ReplaceResource(int resNo){
+		newLevel.costList[4] += newLevel.costList[resNo];
+		newLevel.costList [resNo] = 0;
 	}
 }

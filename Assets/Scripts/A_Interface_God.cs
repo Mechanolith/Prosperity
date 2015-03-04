@@ -5,7 +5,7 @@ public class A_Interface_God : MonoBehaviour {
 	public A_Resource_God resGod;
 	public TextMesh woodCount,stoneCount,ironCount,goldCount,boneCount, workerCount;
 	public TextMesh woodAssigned, stoneAssigned, ironAssigned, goldAssigned;
-	public GameObject userInterface;
+	public GameObject userInterface, sacrificeButton;
 
 	void Start () {
 		resGod = gameObject.GetComponent<A_Resource_God>();
@@ -22,6 +22,9 @@ public class A_Interface_God : MonoBehaviour {
 		goldAssigned = GameObject.Find("I_Gold_Assigned").GetComponent<TextMesh>();
 
 		userInterface = GameObject.Find("I_Interface");
+
+		sacrificeButton = GameObject.Find ("I_Sacrifice_Button");
+		sacrificeButton.SetActive (false);
 	}
 
 	void Update () {
@@ -29,7 +32,12 @@ public class A_Interface_God : MonoBehaviour {
 		stoneCount.text = "STONE: " + resGod.resList[1].current;
 		ironCount.text = "IRON: " + resGod.resList[2].current;
 		goldCount.text = "GOLD: " + resGod.resList[3].current;
-		boneCount.text = "BONES: " + resGod.resList[4].current;
+		if(resGod.isCult){
+			boneCount.text = "BONES: " + resGod.resList[4].current;
+		}
+		else{
+			boneCount.text = "";
+		}
 		workerCount.text = "WORKERS: " + resGod.freeWorkers +"/" + resGod.maxWorkers;
 
 		woodAssigned.text = resGod.resList[0].workers + "W";
@@ -44,5 +52,9 @@ public class A_Interface_God : MonoBehaviour {
 
 	public void DisableInterface(){
 		userInterface.SetActive(false);
+	}
+
+	public void EnableSacrifice(){
+		sacrificeButton.SetActive (true);
 	}
 }

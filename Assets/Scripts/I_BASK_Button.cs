@@ -17,6 +17,9 @@ public class I_BASK_Button : MonoBehaviour {
 	
 	void OnMouseOver(){
 		thisText.color = Color.red;
+		if(resGod.isCult){
+			thisText.text = "REVEL";
+		}
 	}
 	
 	void OnMouseExit(){

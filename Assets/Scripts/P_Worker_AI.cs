@@ -12,6 +12,7 @@ public class P_Worker_AI : MonoBehaviour {
 	private A_Resource_God resGod;
 	private int rand;
 	private TextMesh nameText;
+	private TextMesh infoText;
 
 	void Start () {
 		resGod = GameObject.Find ("A_Game_Logic").GetComponent<A_Resource_God> ();
@@ -28,6 +29,7 @@ public class P_Worker_AI : MonoBehaviour {
 		}
 
 		nameText = gameObject.transform.GetChild(0).GetComponent<TextMesh>();
+		infoText = GameObject.Find ("I_Cost_Text").GetComponent<TextMesh> ();
 	}
 
 	void Update () {
@@ -53,7 +55,7 @@ public class P_Worker_AI : MonoBehaviour {
 
 	void OnMouseEnter(){
 		if(resGod.sacrificing){
-			print ("Mouse On");
+			//Highlight
 		}
 
 		nameText.text = workerName;
@@ -61,7 +63,7 @@ public class P_Worker_AI : MonoBehaviour {
 
 	void OnMouseExit(){
 		if(resGod.sacrificing){
-			print ("Mouse Off");
+			//Remove Highlight
         }
 
 		nameText.text = "";
@@ -71,7 +73,9 @@ public class P_Worker_AI : MonoBehaviour {
 		if(resGod.sacrificing){
 			resGod.sacrificing = false;
 			dying = true;
+			resGod.isCult = true;
 			resGod.GetResource(4);
+			infoText.text = "";
 			Destroy(gameObject);
         }
 	}
