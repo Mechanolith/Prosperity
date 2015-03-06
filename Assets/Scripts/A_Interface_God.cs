@@ -5,7 +5,7 @@ public class A_Interface_God : MonoBehaviour {
 	public A_Resource_God resGod;
 	public TextMesh woodCount,stoneCount,ironCount,goldCount,boneCount, workerCount;
 	public TextMesh woodAssigned, stoneAssigned, ironAssigned, goldAssigned;
-	public GameObject userInterface, sacrificeButton;
+	public GameObject userInterface, sacrificeButton, BaskButton;
 
 	void Start () {
 		resGod = gameObject.GetComponent<A_Resource_God>();
@@ -25,6 +25,9 @@ public class A_Interface_God : MonoBehaviour {
 
 		sacrificeButton = GameObject.Find ("I_Sacrifice_Button");
 		sacrificeButton.SetActive (false);
+
+		BaskButton = GameObject.Find ("I_BASK_Button");
+		BaskButton.SetActive (false);
 	}
 
 	void Update () {
@@ -56,5 +59,9 @@ public class A_Interface_God : MonoBehaviour {
 
 	public void EnableSacrifice(){
 		sacrificeButton.SetActive (true);
+	}
+
+	public void EnableBask(){
+		BaskButton.SetActive (true);
 	}
 }

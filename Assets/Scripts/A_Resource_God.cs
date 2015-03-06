@@ -10,7 +10,7 @@ public class A_Resource_God : MonoBehaviour {
 	private Vector3 towerPos;
 
 	public int maxWorkers, freeWorkers;
-	public GameObject currentWorker, worker;
+	public GameObject currentWorker, worker, foreman;
 	public List<GameObject> workForce = new List<GameObject> ();
 	public bool sacrificing = false;
 	public bool isCult = false;
@@ -18,6 +18,9 @@ public class A_Resource_God : MonoBehaviour {
 	public List<string> nameList = new List<string>();
 	public List<string> firstNames = new List<string>();
 	public List<string> lastNames = new List<string>();
+
+	private A_Audio_God audioGod;
+	private A_Interface_God interGod;
 	
 	void Awake(){
 		resList.Add(new Resource(Resource.ResType.Wood,3135,0,100,0));
@@ -30,6 +33,11 @@ public class A_Resource_God : MonoBehaviour {
 		newLevel = new Upgrade(Upgrade.UpgType.newLevel,20,10,5,0,0,1,1);
 
 		towerPos = new Vector3 (0f, -0.18f, -3.25f);
+
+		audioGod = gameObject.GetComponent<A_Audio_God> ();
+		interGod = gameObject.GetComponent<A_Interface_God> ();
+
+		foreman = GameObject.Find ("P_Foreman");
 	}
 
 	void Start () {
@@ -49,7 +57,7 @@ public class A_Resource_God : MonoBehaviour {
 			resList[resNo].supply = 0;
 		}
 
-		if(resList[resNo].supply == 0){
+		if(resList[resNo].supply == 0 && resNo < 3){
 			gameObject.GetComponent<A_Interface_God>().EnableSacrifice();
 		}
 	}
@@ -93,12 +101,15 @@ public class A_Resource_God : MonoBehaviour {
 					ReplaceResource(i);
 				}
 			}
+			print(Mathf.RoundToInt(newLevel.costList[4] * 1.1f));
 			newLevel.costList[4] = Mathf.RoundToInt(newLevel.costList[4] * 1.1f);
 
 			for (int j = 0; j < resList.Count - 1; j++){
 				resList[j].rate++;
 			}
 			newLevel.iteration++;
+
+			CheckEvent(newLevel.iteration);
 		}
 	}
 
@@ -107,6 +118,7 @@ public class A_Resource_God : MonoBehaviour {
 			res.workers++;
 			freeWorkers--;
 			currentWorker = Instantiate(worker,new Vector3(0f,-0.8f,-5f), Quaternion.identity) as GameObject;
+			currentWorker.transform.parent = foreman.transform;
 			currentWorker.GetComponent<P_Worker_AI>().mustCollect = res.name;
 			currentWorker.GetComponent<P_Worker_AI>().workerName = nameList[0];
 			nameList.RemoveAt(0);
@@ -186,7 +198,7 @@ public class A_Resource_God : MonoBehaviour {
 			break;
 		default:
 			break;
-		};
+		}
 		newLevel.costList [resNo] = 0;
 	}
 
@@ -194,5 +206,27 @@ public class A_Resource_God : MonoBehaviour {
 		resList[resNo].workers--;
 		workForce.RemoveAt(workNo);
 		maxWorkers--;
+		for(int i = 0; i < foreman.transform.childCount; i++){
+			if(foreman.transform.GetChild(i).GetComponent<P_Worker_AI>().workerNumber > workNo){
+				foreman.transform.GetChild(i).GetComponent<P_Worker_AI>().workerNumber--;
+			}
+		}
     }
+
+	void CheckEvent(int levelNo){
+		switch(levelNo){
+		case 2:
+			audioGod.AdvanceAudio();
+			break;
+		case 5:
+			interGod.EnableBask();
+			audioGod.AdvanceAudio();
+			break;
+		case 8:
+			audioGod.AdvanceAudio();
+			break;
+		default:
+			break;
+		}
+	}
 }

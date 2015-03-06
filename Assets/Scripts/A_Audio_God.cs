@@ -15,7 +15,7 @@ public class A_Audio_God : MonoBehaviour {
 			AudioProphets.Add (GameObject.Find("A_Music_Prophet_"+i).GetComponent<AudioSource>());
 		}
 
-		testTimer = 7;
+		//testTimer = 7;
 		lerpTimer = lerpTimeStep;
 	}
 
@@ -48,11 +48,11 @@ public class A_Audio_God : MonoBehaviour {
 				break;
 		}
 
-		testTimer -= Time.deltaTime;
-		if(testTimer <= 0){
-			AdvanceAudio();
-			testTimer = 7;
-		}
+//		testTimer -= Time.deltaTime;
+//		if(testTimer <= 0){
+//			AdvanceAudio();
+//			testTimer = 7;
+//		}
 
 		lerpTimer -= Time.deltaTime;
 	}
