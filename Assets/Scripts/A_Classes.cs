@@ -18,13 +18,15 @@ public class Resource
 	public int current;
 	public int rate;
 	public int workers;
+	public bool replaced;
 	
-	public Resource(ResType nam, int sup, int cur, int rat, int work){
+	public Resource(ResType nam, int sup, int cur, int rat, int work, bool rep){
 		name = nam;
 		supply = sup;
 		current = cur;
 		rate = rat;
 		workers = work;
+		replaced = rep;
 	}
 }
 

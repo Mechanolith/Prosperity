@@ -30,7 +30,7 @@ public class P_Worker_AI : MonoBehaviour {
 		}
 
 		nameText = gameObject.transform.GetChild(0).GetComponent<TextMesh>();
-		infoText = GameObject.Find ("I_Cost_Text").GetComponent<TextMesh> ();
+		infoText = GameObject.Find ("I_WorkerCost_Text").GetComponent<TextMesh> ();
 	}
 
 	void Update () {
@@ -77,6 +77,7 @@ public class P_Worker_AI : MonoBehaviour {
 			resGod.isCult = true;
 			resGod.GetResource(4);
 			infoText.text = "";
+			print ("Worker Says R = " + resNo + " W = " + workerNumber);
             resGod.SacrificeWorker(resNo, workerNumber);
 			Destroy(gameObject);
         }

@@ -1,14 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\A_BASK_God.cs">
     <Files>
-      <File FileName="Assets\Scripts\A_Interface_God.cs" Line="29" Column="40" />
-      <File FileName="Assets\Scripts\P_Worker_AI.cs" Line="80" Column="44" />
-      <File FileName="Assets\Scripts\A_Resource_God.cs" Line="121" Column="54" />
-      <File FileName="Assets\Scripts\I_Sacrifice_Button.cs" Line="36" Column="23" />
-      <File FileName="Assets\Scripts\I_Upgrade_Button.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\A_Resource_God.cs" Line="211" Column="16" />
+      <File FileName="Assets\Scripts\A_Interface_God.cs" Line="42" Column="24" />
+      <File FileName="Assets\Scripts\P_Worker_AI.cs" Line="33" Column="40" />
+      <File FileName="Assets\Scripts\I_Sacrifice_Button.cs" Line="12" Column="39" />
+      <File FileName="Assets\Scripts\I_Upgrade_Button.cs" Line="16" Column="46" />
       <File FileName="Assets\Scripts\A_Audio_God.cs" Line="64" Column="1" />
-      <File FileName="Assets\Scripts\A_BASK_God.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\A_BASK_God.cs" Line="15" Column="2" />
+      <File FileName="Assets\Scripts\A_Classes.cs" Line="23" Column="73" />
+      <File FileName="Assets\Scripts\I_AssignWorker_Button.cs" Line="38" Column="45" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

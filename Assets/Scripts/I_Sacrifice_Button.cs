@@ -8,8 +8,8 @@ public class I_Sacrifice_Button : MonoBehaviour {
 	void Start () {
 		resGod = GameObject.Find("A_Game_Logic").GetComponent<A_Resource_God>();
 		thisText = gameObject.GetComponent<TextMesh>();
-		titleText = GameObject.Find("I_Upgrade_Text").GetComponent<TextMesh>();
-		infoText = GameObject.Find("I_Cost_Text").GetComponent<TextMesh>();
+		titleText = GameObject.Find("I_WorkerUpgrade_Text").GetComponent<TextMesh>();
+		infoText = GameObject.Find("I_WorkerCost_Text").GetComponent<TextMesh>();
 	}
 
 	void Update () {
@@ -22,7 +22,7 @@ public class I_Sacrifice_Button : MonoBehaviour {
 	}
 	
 	void OnMouseExit(){
-		thisText.color = Color.white;
+		thisText.color = Color.black;
 		titleText.text = "";
 	}
 	

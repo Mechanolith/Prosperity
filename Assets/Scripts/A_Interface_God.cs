@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class A_Interface_God : MonoBehaviour {
 	public A_Resource_God resGod;
+	public float textTimer;
 	public TextMesh woodCount,stoneCount,ironCount,goldCount,boneCount, workerCount;
-	public TextMesh woodAssigned, stoneAssigned, ironAssigned, goldAssigned;
+	public TextMesh woodAssigned, stoneAssigned, ironAssigned, goldAssigned, currentLevel, hireText;
 	public GameObject userInterface, sacrificeButton, BaskButton;
+	private List<string> resNames = new List<string>();
+	private List<TextMesh> resTexts = new List<TextMesh>();
 
 	void Start () {
 		resGod = gameObject.GetComponent<A_Resource_God>();
-		woodCount = GameObject.Find("I_Wood_Count").GetComponent<TextMesh>();
-		stoneCount = GameObject.Find("I_Stone_Count").GetComponent<TextMesh>();
-		ironCount = GameObject.Find("I_Iron_Count").GetComponent<TextMesh>();
-		goldCount = GameObject.Find("I_Gold_Count").GetComponent<TextMesh>();
+		resTexts.Add(GameObject.Find("I_Wood_Count").GetComponent<TextMesh>());
+		resTexts.Add(GameObject.Find("I_Stone_Count").GetComponent<TextMesh>());
+		resTexts.Add(GameObject.Find("I_Iron_Count").GetComponent<TextMesh>());
+		resTexts.Add(GameObject.Find("I_Gold_Count").GetComponent<TextMesh>());
 		boneCount = GameObject.Find("I_Bones_Count").GetComponent<TextMesh>();
 		workerCount = GameObject.Find("I_Worker_Count").GetComponent<TextMesh>();
 
@@ -21,6 +25,10 @@ public class A_Interface_God : MonoBehaviour {
 		ironAssigned = GameObject.Find("I_Iron_Assigned").GetComponent<TextMesh>();
 		goldAssigned = GameObject.Find("I_Gold_Assigned").GetComponent<TextMesh>();
 
+		currentLevel = GameObject.Find("I_CurrentLevel_Text").GetComponent<TextMesh>();
+
+		hireText = GameObject.Find("I_Hire_Text").GetComponent<TextMesh>();
+
 		userInterface = GameObject.Find("I_Interface");
 
 		sacrificeButton = GameObject.Find ("I_Sacrifice_Button");
@@ -28,13 +36,22 @@ public class A_Interface_God : MonoBehaviour {
 
 		BaskButton = GameObject.Find ("I_BASK_Button");
 		BaskButton.SetActive (false);
+
+		resNames.Add("WOOD");
+		resNames.Add("STONE");
+		resNames.Add("IRON");
+		resNames.Add("GOLD");
 	}
 
 	void Update () {
-		woodCount.text = "WOOD: " + resGod.resList[0].current;
-		stoneCount.text = "STONE: " + resGod.resList[1].current;
-		ironCount.text = "IRON: " + resGod.resList[2].current;
-		goldCount.text = "GOLD: " + resGod.resList[3].current;
+		for(int i = 0; i < resGod.resList.Count-1; i++){
+			if(resGod.resList[i].current > 0 || resGod.resList[i].supply > 0){
+				resTexts[i].text = resNames[i] + ": " + resGod.resList[i].current;
+			}
+			else if(resGod.resList[i].supply == 0){
+				resTexts[i].text = resNames[i] + ": SPENT";
+			}
+		}
 		if(resGod.isCult){
 			boneCount.text = "BONES: " + resGod.resList[4].current;
 		}
@@ -43,10 +60,19 @@ public class A_Interface_God : MonoBehaviour {
 		}
 		workerCount.text = "WORKERS: " + resGod.freeWorkers +"/" + resGod.maxWorkers;
 
-		woodAssigned.text = resGod.resList[0].workers + "W";
-		stoneAssigned.text = resGod.resList[1].workers + "S";
-		ironAssigned.text = resGod.resList[2].workers + "I";
-		goldAssigned.text = resGod.resList[3].workers + "G";
+		woodAssigned.text = resGod.resList[0].workers + "";
+		stoneAssigned.text = resGod.resList[1].workers + "";
+		ironAssigned.text = resGod.resList[2].workers + "";
+		goldAssigned.text = resGod.resList[3].workers + "";
+
+		currentLevel.text = resGod.newLevel.iteration - 1 + " LEVELS";
+
+		if(textTimer > 0){
+			textTimer -= Time.deltaTime;
+		}
+		else{
+			hireText.text = "";
+		}
 	}
 
 	public void EnableInterface(){
@@ -63,5 +89,15 @@ public class A_Interface_God : MonoBehaviour {
 
 	public void EnableBask(){
 		BaskButton.SetActive (true);
+	}
+
+	public void OnHireWorker(){
+		textTimer = 5f;
+		if(!resGod.isCult){
+			hireText.text = resGod.nameList[resGod.nameList.Count-1] + " has joined the crew!";
+		}
+		else{
+			hireText.text = resGod.nameList[resGod.nameList.Count-1] + " has joined the cult!";
+		}
 	}
 }

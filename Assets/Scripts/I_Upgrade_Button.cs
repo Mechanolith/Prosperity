@@ -5,13 +5,15 @@ public class I_Upgrade_Button : MonoBehaviour {
 	public A_Resource_God resGod;
 	public string upgName, displayName;
 	public Upgrade upg;
-	public TextMesh thisText, upgText, costText;
+	public TextMesh thisText, levelUpgText, levelCostText, workerUpgText, workerCostText;
 
 	void Start () {
 		resGod = GameObject.Find("A_Game_Logic").GetComponent<A_Resource_God>();
 		thisText = gameObject.GetComponent<TextMesh>();
-		upgText = GameObject.Find ("I_Upgrade_Text").GetComponent<TextMesh> ();
-		costText = GameObject.Find ("I_Cost_Text").GetComponent<TextMesh> ();
+		levelUpgText = GameObject.Find ("I_LevelUpgrade_Text").GetComponent<TextMesh> ();
+		levelCostText = GameObject.Find ("I_LevelCost_Text").GetComponent<TextMesh> ();
+		workerUpgText = GameObject.Find ("I_WorkerUpgrade_Text").GetComponent<TextMesh> ();
+		workerCostText = GameObject.Find ("I_WorkerCost_Text").GetComponent<TextMesh> ();
 
 		if (upgName == "Worker"){
 			upg = resGod.newWorker;
@@ -30,35 +32,38 @@ public class I_Upgrade_Button : MonoBehaviour {
 	void OnMouseOver(){
 		thisText.color = Color.red;
 		if(!resGod.sacrificing){
-			upgText.text = displayName;
 			if(upg.name == Upgrade.UpgType.newLevel){
+				levelUpgText.text = displayName;
 				if(upg.costList[0] > 0){
-					costText.text = "W: " + upg.costList[0] + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2] + "\nImproves Productivity!";
+					levelCostText.text = "W: " + upg.costList[0] + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2] + "\nImproves Productivity!";
 				}
 				else if(upg.costList[1] > 0 && resGod.isCult){
-					costText.text = "B: " + upg.costList[4] + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2] + "\nEnsures Productivity!";
+					levelCostText.text = "B: " + upg.costList[4] + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2] + "\nEnsures Productivity!";
 				}
 				else if(upg.costList[2] > 0 && resGod.isCult){
-					costText.text = "B: " + upg.costList[4] + "\nI: " + upg.costList[2] + "\nDemands Productivity!";
+					levelCostText.text = "B: " + upg.costList[4] + "\nI: " + upg.costList[2] + "\nDemands Productivity!";
 				}
 				else if(resGod.isCult){
-					costText.text = "B: " + upg.costList[4] + "\nEnforces Productivity!";
+					levelCostText.text = "B: " + upg.costList[4] + "\nEnforces Productivity!";
 				}
 				else{
-					costText.text = "W: INSUFFICIENT" + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2] + "\nImproves Productivity!";
+					levelCostText.text = "W: DEPLETED" + "\nS: " + upg.costList[1] + "\nI: " + upg.costList[2] + "\nImproves Productivity!";
 				}
 			}
 			else{
-				costText.text = "G: " + upg.costList[3];
+				workerUpgText.text = displayName;
+				workerCostText.text = "G: " + upg.costList[3];
 			}
 		}
 	}
 	
 	void OnMouseExit(){
-		thisText.color = Color.white;
+		thisText.color = Color.black;
 		if(!resGod.sacrificing){
-			upgText.text = "";
-			costText.text = "";
+			levelUpgText.text = "";
+			levelCostText.text = "";
+			workerUpgText.text = "";
+			workerCostText.text = "";
 		}
 	}
 

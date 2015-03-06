@@ -23,11 +23,11 @@ public class A_Resource_God : MonoBehaviour {
 	private A_Interface_God interGod;
 	
 	void Awake(){
-		resList.Add(new Resource(Resource.ResType.Wood,3135,0,100,0));
-		resList.Add(new Resource(Resource.ResType.Stone,4570,0,100,0));
-		resList.Add(new Resource(Resource.ResType.Iron,5302,0,100,0));
-		resList.Add(new Resource(Resource.ResType.Gold,10662,10,100,0));
-		resList.Add(new Resource(Resource.ResType.Bones,70000,0,190,0));
+		resList.Add(new Resource(Resource.ResType.Wood,3135,0,100,0, false));
+		resList.Add(new Resource(Resource.ResType.Stone,4570,0,100,0, false));
+		resList.Add(new Resource(Resource.ResType.Iron,5302,0,100,0, false));
+		resList.Add(new Resource(Resource.ResType.Gold,10662,1000000,100,0, false));
+		resList.Add(new Resource(Resource.ResType.Bones,70000,0,190,0, false));
 
 		newWorker = new Upgrade(Upgrade.UpgType.newWorker,0,0,0,10,0,1,1);
 		newLevel = new Upgrade(Upgrade.UpgType.newLevel,20,10,5,0,0,1,1);
@@ -91,17 +91,17 @@ public class A_Resource_God : MonoBehaviour {
 			newWorker.costList[3] = Mathf.RoundToInt(newWorker.costList[3] * 1.15f);
 			nameList.Add(ChooseName());
 			newWorker.iteration++;
+			interGod.OnHireWorker();
 		}
 
 		if(upg.name == Upgrade.UpgType.newLevel){
 			ConstructTower();
 			for(int i = 0; i < newLevel.costList.Count-1; i++){
 				newLevel.costList[i] = Mathf.RoundToInt(newLevel.costList[i] * 1.15f);
-				if(resList[i].current < 10 && resList[i].supply == 0){
+				if(resList[i].current == 0 && resList[i].supply == 0 && !resList[i].replaced){
 					ReplaceResource(i);
 				}
 			}
-			print(Mathf.RoundToInt(newLevel.costList[4] * 1.1f));
 			newLevel.costList[4] = Mathf.RoundToInt(newLevel.costList[4] * 1.1f);
 
 			for (int j = 0; j < resList.Count - 1; j++){
@@ -139,6 +139,7 @@ public class A_Resource_God : MonoBehaviour {
 			for(int k = 0; k < workForce.Count; k++){
 				workerScript = workForce[k].GetComponent<P_Worker_AI>();
 				if(workerScript.mustCollect == res.name && !workerScript.carrying){
+					print ("Removing " + k);
 					nameList.Add(workForce[k].GetComponent<P_Worker_AI>().workerName);
 					Destroy(workForce[k]);
 					workForce.RemoveAt(k);
@@ -200,9 +201,11 @@ public class A_Resource_God : MonoBehaviour {
 			break;
 		}
 		newLevel.costList [resNo] = 0;
+		resList[resNo].replaced = true;
 	}
 
     public void SacrificeWorker(int resNo, int workNo){
+		print ("ResGod says R = " + resNo + " W = " + workNo);
 		resList[resNo].workers--;
 		workForce.RemoveAt(workNo);
 		maxWorkers--;
@@ -213,7 +216,7 @@ public class A_Resource_God : MonoBehaviour {
 		}
     }
 
-	void CheckEvent(int levelNo){
+	void CheckEvent(int levelNo){		//Used for changing audio and enabling buttons at set progress points
 		switch(levelNo){
 		case 2:
 			audioGod.AdvanceAudio();

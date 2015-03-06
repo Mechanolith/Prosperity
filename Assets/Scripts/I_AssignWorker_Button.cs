@@ -30,7 +30,7 @@ public class I_AssignWorker_Button : MonoBehaviour {
 	}
 
 	void OnMouseExit(){
-		thisText.color = Color.white;
+		thisText.color = Color.black;
 	}
 
 	void OnMouseDown(){
