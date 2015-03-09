@@ -21,21 +21,23 @@ public class A_Resource_God : MonoBehaviour {
 
 	private A_Audio_God audioGod;
 	private A_Interface_God interGod;
+	private A_God_God godGod;
 	
 	void Awake(){
 		resList.Add(new Resource(Resource.ResType.Wood,3135,0,100,0, false));
 		resList.Add(new Resource(Resource.ResType.Stone,4570,0,100,0, false));
 		resList.Add(new Resource(Resource.ResType.Iron,5302,0,100,0, false));
-		resList.Add(new Resource(Resource.ResType.Gold,10662,1000000,100,0, false));
-		resList.Add(new Resource(Resource.ResType.Bones,70000,0,190,0, false));
+		resList.Add(new Resource(Resource.ResType.Gold,10662,10000000,100,0, false));
+		resList.Add(new Resource(Resource.ResType.Bones,70000,8225,235,0, false));
 
 		newWorker = new Upgrade(Upgrade.UpgType.newWorker,0,0,0,10,0,1,1);
 		newLevel = new Upgrade(Upgrade.UpgType.newLevel,20,10,5,0,0,1,1);
 
 		towerPos = new Vector3 (0f, -0.18f, -3.25f);
 
-		audioGod = gameObject.GetComponent<A_Audio_God> ();
-		interGod = gameObject.GetComponent<A_Interface_God> ();
+		audioGod = gameObject.GetComponent<A_Audio_God>();
+		interGod = gameObject.GetComponent<A_Interface_God>();
+		godGod = gameObject.GetComponent<A_God_God>();
 
 		foreman = GameObject.Find ("P_Foreman");
 	}
@@ -110,6 +112,11 @@ public class A_Resource_God : MonoBehaviour {
 			newLevel.iteration++;
 
 			CheckEvent(newLevel.iteration);
+
+			if(godGod.timer < godGod.buildTime){
+				godGod.timer = godGod.buildTime;
+			}
+			godGod.GiveEncouragement();
 		}
 	}
 
@@ -143,6 +150,7 @@ public class A_Resource_God : MonoBehaviour {
 					nameList.Add(workForce[k].GetComponent<P_Worker_AI>().workerName);
 					Destroy(workForce[k]);
 					workForce.RemoveAt(k);
+					ShiftWorkNums(k);
 					removed = true;
 					break;
 				}
@@ -159,6 +167,7 @@ public class A_Resource_God : MonoBehaviour {
 				nameList.Add(tempWorker.GetComponent<P_Worker_AI>().workerName);
 				Destroy(tempWorker);
 				workForce.RemoveAt(tempNum);
+				ShiftWorkNums(tempNum);
 			}
 		}
 	}
@@ -209,11 +218,7 @@ public class A_Resource_God : MonoBehaviour {
 		resList[resNo].workers--;
 		workForce.RemoveAt(workNo);
 		maxWorkers--;
-		for(int i = 0; i < foreman.transform.childCount; i++){
-			if(foreman.transform.GetChild(i).GetComponent<P_Worker_AI>().workerNumber > workNo){
-				foreman.transform.GetChild(i).GetComponent<P_Worker_AI>().workerNumber--;
-			}
-		}
+		ShiftWorkNums(workNo);
     }
 
 	void CheckEvent(int levelNo){		//Used for changing audio and enabling buttons at set progress points
@@ -228,8 +233,23 @@ public class A_Resource_God : MonoBehaviour {
 		case 8:
 			audioGod.AdvanceAudio();
 			break;
+		case 51:
+			WinGame();
+			break;
 		default:
 			break;
 		}
+	}
+
+	void ShiftWorkNums(int workNo){
+		for(int i = 0; i < foreman.transform.childCount; i++){
+			if(foreman.transform.GetChild(i).GetComponent<P_Worker_AI>().workerNumber > workNo){
+				foreman.transform.GetChild(i).GetComponent<P_Worker_AI>().workerNumber--;
+			}
+		}
+	}
+
+	void WinGame(){
+		print ("YOU WIN");
 	}
 }

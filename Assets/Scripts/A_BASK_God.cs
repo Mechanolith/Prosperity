@@ -28,8 +28,10 @@ public class A_BASK_God : MonoBehaviour {
 				camSpeed = (resGod.newLevel.iteration - 1)* 2.5f/baskLength;
 				Camera.main.transform.position += new Vector3 (0,camSpeed,camSpeed/((5*resGod.newLevel.iteration)/((baskLength-baskTimer) + 1))) * Time.deltaTime;
 				tempXRot = -camSpeed/(125/((baskLength-baskTimer) + 1));
-				tempXRot = Mathf.Clamp(tempXRot, 0, 75);
-				Camera.main.transform.Rotate(new Vector3(tempXRot,0,0));
+				if(Camera.main.transform.rotation.eulerAngles.x < 75){
+					tempXRot = Mathf.Clamp(tempXRot, 0, 75);
+					Camera.main.transform.Rotate(new Vector3(tempXRot,0,0));
+				}
 			}
 			
 			if(baskTimer <= 0){

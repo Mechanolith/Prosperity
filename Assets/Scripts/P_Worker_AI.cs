@@ -8,6 +8,7 @@ public class P_Worker_AI : MonoBehaviour {
 	public bool carrying = false;
 	public string workerName;
 	public int workerNumber;
+	public GameObject collectText;
 
 	private int resNo;
 	private A_Resource_God resGod;
@@ -43,12 +44,19 @@ public class P_Worker_AI : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
+		GameObject tempObj;
+		float tempRandY, tempRandX;
+
 		if(col.tag == "End"){
 			moveSpeed *= -1;
 			carrying = true;
 		}
 		else if (col.tag == "Tower" && carrying == true){
 			resGod.GetResource(resNo);
+			tempRandX = Random.Range(-0.5f,0.5f);
+			tempRandY = Random.Range(0.5f, 1.5f);
+			tempObj = Instantiate(collectText, transform.position + (Vector3.up * tempRandY) + (Vector3.right * tempRandX), Quaternion.identity) as GameObject;
+			tempObj.GetComponent<TextMesh>().text = "+" + resGod.resList[resNo].rate;
 			moveSpeed *= -1;
 			carrying = false;
 		}
